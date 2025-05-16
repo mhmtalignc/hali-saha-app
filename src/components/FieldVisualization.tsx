@@ -1,6 +1,6 @@
 import React from "react";
 import type { Team } from "../types";
-import sahaImage from "../assets/saha.jpg"; // Resim yolunu kontrol edin
+import sahaImage from "../assets/saha.png"; // Resim yolunu kontrol edin
 
 interface FieldVisualizationProps {
   team1: Team;
