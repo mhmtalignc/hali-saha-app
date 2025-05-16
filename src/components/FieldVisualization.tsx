@@ -1,6 +1,6 @@
 import React from "react";
 import type { Team } from "../types";
-import sahaImage from "../assets/saha.png"; // Resim yolunu kendi dosyanıza göre ayarlayın
+import sahaImage from "../assets/saha.jpg"; // Resim yolunu kontrol edin
 
 interface FieldVisualizationProps {
   team1: Team;
@@ -11,42 +11,45 @@ const FieldVisualization: React.FC<FieldVisualizationProps> = ({
   team1,
   team2,
 }) => {
-  // 1-3-2-1 dizilişi için pozisyonlar (1280x812 piksel üzerinden)
-  // Takım 1 (sol yarı saha)
+  // 1-3-2-1 dizilişi için pozisyonlar (% cinsinden, 1280x812 oranına göre)
   const team1Positions = [
-    { x: 100, y: 406 }, // Kaleci (1)
-    { x: 300, y: 200 },
-    { x: 300, y: 406 },
-    { x: 300, y: 612 }, // Defans (3)
-    { x: 450, y: 306 },
-    { x: 450, y: 506 }, // Orta saha (2)
-    { x: 550, y: 406 }, // Forvet (1)
+    { x: 7.81, y: 50 }, // Kaleci (100/1280)
+    { x: 23.44, y: 24.63 },
+    { x: 23.44, y: 50 },
+    { x: 23.44, y: 75.37 }, // Defans
+    { x: 35.16, y: 37.68 },
+    { x: 35.16, y: 62.32 }, // Orta saha
+    { x: 42.97, y: 50 }, // Forvet
   ];
 
-  // Takım 2 (sağ yarı saha)
   const team2Positions = [
-    { x: 1180, y: 406 }, // Kaleci (1)
-    { x: 980, y: 200 },
-    { x: 980, y: 406 },
-    { x: 980, y: 612 }, // Defans (3)
-    { x: 830, y: 306 },
-    { x: 830, y: 506 }, // Orta saha (2)
-    { x: 730, y: 406 }, // Forvet (1)
+    { x: 92.19, y: 50 }, // Kaleci (1180/1280)
+    { x: 76.56, y: 24.63 },
+    { x: 76.56, y: 50 },
+    { x: 76.56, y: 75.37 }, // Defans
+    { x: 64.84, y: 37.68 },
+    { x: 64.84, y: 62.32 }, // Orta saha
+    { x: 57.03, y: 50 }, // Forvet
   ];
 
   return (
     <div
       style={{
         position: "relative",
-        width: "1280px",
-        height: "812px",
+        width: "100%",
+        maxWidth: "1280px",
+        aspectRatio: "1280 / 812", // Orjinal oran korunur
         margin: "20px auto",
       }}
     >
       <img
         src={sahaImage}
         alt="Saha"
-        style={{ width: "100%", height: "100%", objectFit: "cover" }}
+        style={{
+          width: "100%",
+          height: "100%",
+          objectFit: "contain",
+        }}
       />
       {/* Takım 1 oyuncuları (sol yarı saha) */}
       {team1.players.slice(0, 7).map((player, index) => (
@@ -54,20 +57,22 @@ const FieldVisualization: React.FC<FieldVisualizationProps> = ({
           key={player.id}
           style={{
             position: "absolute",
-            left: `${team1Positions[index].x}px`,
-            top: `${team1Positions[index].y - 20}px`,
+            left: `${team1Positions[index].x}%`,
+            top: `${team1Positions[index].y}%`,
+            transform: "translate(-50%, -50%)", // Merkezleme
             color: "white",
-            fontSize: "16px",
+            fontSize: "clamp(12px, 2vw, 14px)", // Responsive font
             fontWeight: "bold",
             textAlign: "center",
-            textShadow: "0 0 3px rgba(0, 0, 0, 0.8)", // Okunabilirlik için gölge
-            backgroundColor: "rgba(0, 0, 255, 0.3)", // Mavi yarı saydam daire
+            textShadow: "0 0 3px rgba(0, 0, 0, 0.8)",
+            backgroundColor: "rgba(0, 0, 255, 0.3)", // Mavi daire
             borderRadius: "50%",
-            width: "30px",
-            height: "30px",
+            width: "clamp(20px, 3vw, 25px)", // Responsive boyut
+            height: "clamp(20px, 3vw, 25px)",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
+            padding: "2px",
           }}
         >
           {player.name}
@@ -79,20 +84,22 @@ const FieldVisualization: React.FC<FieldVisualizationProps> = ({
           key={player.id}
           style={{
             position: "absolute",
-            left: `${team2Positions[index].x}px`,
-            top: `${team2Positions[index].y - 20}px`,
+            left: `${team2Positions[index].x}%`,
+            top: `${team2Positions[index].y}%`,
+            transform: "translate(-50%, -50%)",
             color: "white",
-            fontSize: "16px",
+            fontSize: "clamp(12px, 2vw, 14px)",
             fontWeight: "bold",
             textAlign: "center",
-            textShadow: "0 0 3px rgba(0, 0, 0, 0.8)", // Okunabilirlik için gölge
-            backgroundColor: "rgba(255, 0, 0, 0.3)", // Kırmızı yarı saydam daire
+            textShadow: "0 0 3px rgba(0, 0, 0, 0.8)",
+            backgroundColor: "rgba(255, 0, 0, 0.3)", // Kırmızı daire
             borderRadius: "50%",
-            width: "30px",
-            height: "30px",
+            width: "clamp(20px, 3vw, 25px)",
+            height: "clamp(20px, 3vw, 25px)",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
+            padding: "2px",
           }}
         >
           {player.name}

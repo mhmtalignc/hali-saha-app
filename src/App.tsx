@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PlayerForm from "./components/PlayerForm";
 import TeamDisplay from "./components/TeamDisplay";
 import FieldVisualization from "./components/FieldVisualization";
@@ -7,7 +7,20 @@ import type { Player, Team } from "./types";
 import "./styles/App.css";
 
 const App: React.FC = () => {
-  const [teams, setTeams] = useState<{ team1: Team; team2: Team } | null>(null);
+  const [teams, setTeams] = useState<{ team1: Team; team2: Team } | null>(
+    () => {
+      const saved = localStorage.getItem("teams");
+      return saved ? JSON.parse(saved) : null;
+    }
+  );
+
+  useEffect(() => {
+    if (teams) {
+      localStorage.setItem("teams", JSON.stringify(teams));
+    } else {
+      localStorage.removeItem("teams"); // Takımlar sıfırlanırsa LocalStorage’dan sil
+    }
+  }, [teams]);
 
   const handleGenerateTeams = (players: Player[]) => {
     const balancedTeams = balanceTeams(players);

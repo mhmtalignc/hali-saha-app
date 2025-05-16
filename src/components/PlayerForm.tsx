@@ -14,6 +14,7 @@ const PlayerForm: React.FC<PlayerFormProps> = ({ onGenerateTeams }) => {
   const [rating, setRating] = useState<number | "">("");
   const [editingId, setEditingId] = useState<number | null>(null);
 
+  // LocalStorage’a sadece players değiştiğinde kaydet
   useEffect(() => {
     localStorage.setItem("players", JSON.stringify(players));
   }, [players]);
@@ -21,6 +22,7 @@ const PlayerForm: React.FC<PlayerFormProps> = ({ onGenerateTeams }) => {
   const addOrUpdatePlayer = () => {
     if (name && rating && rating >= 1 && rating <= 10) {
       if (editingId) {
+        // Güncelleme: Mevcut oyuncuyu güncelle
         setPlayers(
           players.map((p) =>
             p.id === editingId ? { ...p, name, rating: Number(rating) } : p
@@ -28,10 +30,14 @@ const PlayerForm: React.FC<PlayerFormProps> = ({ onGenerateTeams }) => {
         );
         setEditingId(null);
       } else if (players.length < 14) {
-        setPlayers([
-          ...players,
-          { id: players.length + 1, name, rating: Number(rating) },
-        ]);
+        // Yeni oyuncu: Benzersiz ID oluştur
+        const newId =
+          players.length > 0 ? Math.max(...players.map((p) => p.id)) + 1 : 1;
+        setPlayers([...players, { id: newId, name, rating: Number(rating) }]);
+      }
+      if (players.some((p) => p.name === name && p.id !== editingId)) {
+        alert("Bu isim zaten mevcut!");
+        return;
       }
       setName("");
       setRating("");
@@ -70,7 +76,7 @@ const PlayerForm: React.FC<PlayerFormProps> = ({ onGenerateTeams }) => {
         />
         <input
           type="number"
-          placeholder="Puan"
+          placeholder="Puan (1-10)"
           value={rating}
           onChange={(e) => {
             const value = e.target.value;
