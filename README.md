@@ -1,54 +1,35 @@
-# React + TypeScript + Vite
+# Halı Saha Takım Oluşturucu
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Halı Saha Takım Oluşturucu, 14 oyuncuyu adil bir şekilde iki takıma bölen ve oyuncuların saha üzerindeki pozisyonlarını görselleştiren bir web uygulamasıdır. React, TypeScript ve Vite ile geliştirilmiş, modern ve kullanıcı dostu bir arayüze sahiptir. Uygulama, LocalStorage ile verileri saklar, mobil uyumlu çalışır ve Netlify üzerinde canlı olarak yayınlanabilir.
 
-Currently, two official plugins are available:
+## Özellikler
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Oyuncu Yönetimi**: 14 oyuncuyu isim ve 1-10 arası puanlarla ekleme, düzenleme ve silme.
+- **Adil Takım Oluşturma**: Oyuncuları puanlarına göre dengeli iki takıma (7’şer kişi) böler.
+- **Saha Görselleştirmesi**: 1-3-2-1 dizilişinde oyuncuları saha resmi üzerinde mavi/kırmızı dairelerle gösterir.
+- **Responsive Tasarım**: Mobil ve masaüstü cihazlarda sorunsuz çalışır.
+- **Veri Kalıcılığı**: Oyuncu ve takım verileri LocalStorage’da saklanır, tarayıcı kapansa bile korunur.
+- **Modern UI**: Inter fontu, gradyan butonlar, animasyonlar ve yükleme spinner’ı ile şık bir görünüm.
+- **Kolay Deploy**: Netlify ile otomatik build ve yayınlama.
 
-## Expanding the ESLint configuration
+## Ekran Görüntüleri
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+https://hayatadestekhalisaha.netlify.app/
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## Teknolojiler
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- **React**: Dinamik ve bileşen tabanlı arayüz.
+- **TypeScript**: Tip güvenliği ve hata önleme.
+- **Vite**: Hızlı geliştirme ve build aracı.
+- **CSS**: Özel stiller, responsive tasarım ve animasyonlar.
+- **LocalStorage**: Veri saklama.
+- **Netlify**: Canlı yayınlama.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Kurulum
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+Projeyi yerel makinenizde çalıştırmak için aşağıdaki adımları izleyin.
+
+### Gereksinimler
+
+- **Node.js**: v18 veya üstü.
+- **npm**: Node.js ile gelir.
